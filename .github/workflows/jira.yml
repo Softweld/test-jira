@@ -3,6 +3,8 @@ name: Add Jira Timeline Comment on Project Column Move
 on:
   project_card:
     types: [moved]
+  issues:
+    types: [opened]
 
 jobs:
   update-jira-timeline:
