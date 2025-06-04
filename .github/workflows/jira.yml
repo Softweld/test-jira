@@ -45,14 +45,15 @@ jobs:
       - name: Extract Jira issue key
         id: extract_key
         run: |
-          echo "Extracting Jira key from issue title..."
-          TITLE="${{ fromJson(steps.get_issue.outputs.result).title }}"
-          if [[ "$TITLE" =~ ([A-Z]+-[0-9]+) ]]; then
+          echo "Extracting Jira key from issue description..."
+          BODY="${{ fromJson(steps.get_issue.outputs.result).body }}"
+          if [[ "$BODY" =~ ([A-Z]+-[0-9]+) ]]; then
             echo "key=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
           else
-            echo "No Jira key found in title."
+            echo "No Jira key found in description."
             exit 1
           fi
+
 
       - name: Add comment to Jira issue
         run: |
